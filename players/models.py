@@ -34,6 +34,8 @@ class Player(models.Model):
     receptions_per_touchdown = models.FloatField()
     targets_per_touchdown = models.FloatField()
     total_attempts = models.IntegerField()
+    total_yards = models.IntegerField(default=0)
+    yards_per_attempt = models.FloatField(default=0)
     total_touchdowns = models.IntegerField()
     attempts_per_touchdown = models.FloatField()
     games = models.IntegerField()
