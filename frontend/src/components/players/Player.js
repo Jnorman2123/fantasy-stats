@@ -13,7 +13,11 @@ class Player extends Component {
 
   render() {
     const rows = this.createPlayers();
-    return <tr>{rows}</tr>;
+    if (this.props.toggled === "on") {
+      return <tr>{rows}</tr>;
+    } else {
+      return <></>;
+    }
   }
 }
 

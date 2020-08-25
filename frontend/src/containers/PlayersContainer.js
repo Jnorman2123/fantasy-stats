@@ -5,6 +5,7 @@ import PlayerTable from "../components/players/PlayerTable";
 import Player from "../components/players/Player";
 import Stat from "../components/players/Stat";
 import CheckboxContainer from "./CheckboxContainer";
+import PositionContainer from "./PositionContainer";
 
 const state = {
   stats: {
@@ -50,10 +51,10 @@ const state = {
     "Starting value over replacement": "on",
   },
   positions: {
-    qb: "on",
-    rb: "on",
-    wr: "on",
-    te: "on",
+    QB: "on",
+    RB: "on",
+    WR: "on",
+    TE: "on",
   },
   sort: "",
 };
@@ -89,14 +90,14 @@ class PlayersContainer extends Component {
 
   handlePositionToggle = (event) => {
     event.persist();
-    this.state.position[event.target.name] === "on"
+    this.state.positions[event.target.name] === "on"
       ? this.setState((prevState) => ({
           ...prevState,
-          position: { ...prevState.position, [event.target.name]: "off" },
+          positions: { ...prevState.positions, [event.target.name]: "off" },
         }))
       : this.setState((prevState) => ({
           ...prevState,
-          position: { ...prevState.position, [event.target.name]: "on" },
+          positions: { ...prevState.positions, [event.target.name]: "on" },
         }));
   };
 
@@ -114,7 +115,6 @@ class PlayersContainer extends Component {
     if (sorting !== "") {
       const newSort = sorting[0].replace(/\ /g, "_");
       const lowerSort = newSort.charAt(0).toLowerCase() + newSort.slice(1);
-      console.log(lowerSort);
       if (players !== undefined) {
         players.sort((a, b) => (a[lowerSort] > b[lowerSort] ? -1 : 1));
         return players.map((player) => {
@@ -123,6 +123,7 @@ class PlayersContainer extends Component {
               key={player.name}
               player={player}
               stats={this.state.stats}
+              toggled={this.state.positions[player.position]}
             />
           );
         });
@@ -130,7 +131,12 @@ class PlayersContainer extends Component {
     } else {
       return players.map((player) => {
         return (
-          <Player key={player.name} player={player} stats={this.state.stats} />
+          <Player
+            key={player.name}
+            player={player}
+            stats={this.state.stats}
+            toggled={this.state.positions[player.position]}
+          />
         );
       });
     }
@@ -159,15 +165,19 @@ class PlayersContainer extends Component {
   render() {
     const stats = this.createStats();
     let toggled = this.state;
+    const positions = Object.keys(this.state.positions);
     return (
       <div>
-        <div>
-          <CheckboxContainer
-            toggled={toggled}
-            stats={stats}
-            handleStatToggle={this.handleStatToggle}
-          />
-        </div>
+        <CheckboxContainer
+          toggled={toggled}
+          stats={stats}
+          handleStatToggle={this.handleStatToggle}
+        />
+        <PositionContainer
+          toggled={toggled}
+          positions={positions}
+          handlePositionToggle={this.handlePositionToggle}
+        />
         <div>
           <PlayerTable
             renderPlayers={this.renderPlayers}

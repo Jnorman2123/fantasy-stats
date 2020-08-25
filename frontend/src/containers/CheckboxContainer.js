@@ -5,7 +5,7 @@ class CheckboxContainer extends Component {
   render() {
     if (this.props.stats !== undefined) {
       return (
-        <div className="dropdown">
+        <>
           <button
             type="button"
             className="btn btn-primary dropdown-toggle btn-sm"
@@ -28,7 +28,7 @@ class CheckboxContainer extends Component {
               );
             })}
           </div>
-        </div>
+        </>
       );
     } else {
       return <></>;

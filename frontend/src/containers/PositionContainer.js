@@ -3,26 +3,26 @@ import Position from "../components/players/Position";
 
 class PositionContainer extends Component {
   render() {
-    if (this.props.stats !== undefined) {
+    if (this.props.positions !== undefined) {
       return (
-        <div className="dropdown">
+        <div>
           <button
             type="button"
-            className="btn btn-primary dropdown-toggle btn-sm"
+            className="btn btn-secondary dropdown-toggle btn-sm"
             data-toggle="dropdown"
           >
-            Hide Stat
+            Hide Position
           </button>
           <div
-            className="dropdown-menu bg-primary"
+            className="dropdown-menu bg-secondary"
             aria-labelledby="dropdownMenuButton"
           >
-            {this.props.stats.map((stat) => {
+            {this.props.positions.map((position) => {
               return (
                 <Position
-                  key={stat}
-                  stat={stat}
-                  handleStatToggle={this.props.handleStatToggle}
+                  key={position}
+                  position={position}
+                  handlePositionToggle={this.props.handlePositionToggle}
                   toggled={this.props.toggled}
                 />
               );
