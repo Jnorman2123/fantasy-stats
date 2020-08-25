@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchQuarterbacks } from "../actions/quarterbacks/quarterbackActions";
-import QuarterbackTable from "../components/quarterbacks/QuarterbackTable";
-import Quarterback from "../components/quarterbacks/Quarterback";
-import Stat from "../components/quarterbacks/Stat";
+import { fetchPlayers } from "../actions/players/playersActions";
+import PlayerTable from "../components/players/PlayerTable";
+import Player from "../components/players/Player";
+import Stat from "../components/players/Stat";
 import CheckboxContainer from "./CheckboxContainer";
 
 const state = {
@@ -38,14 +38,14 @@ const state = {
   sort: "",
 };
 
-class QuarterbacksContainer extends Component {
+class PlayersContainer extends Component {
   constructor(props) {
     super(props);
     this.state = state;
   }
 
   componentDidMount() {
-    this.props.fetchQuarterbacks();
+    this.props.fetchPlayers();
   }
 
   createStats = () => {
@@ -75,22 +75,30 @@ class QuarterbacksContainer extends Component {
     }));
   };
 
-  renderQuarterbacks = () => {
-    const qbs = this.props.quarterbacks.quarterbacks;
+  renderPlayers = () => {
+    const players = this.props.players.players;
     const sorting = this.state.sort;
     if (sorting !== "") {
       const newSort = sorting[0].replace(/\ /g, "_");
       const lowerSort = newSort.charAt(0).toLowerCase() + newSort.slice(1);
       console.log(lowerSort);
-      if (qbs !== undefined) {
-        qbs.sort((a, b) => (a[lowerSort] > b[lowerSort] ? -1 : 1));
-        return qbs.map((qb) => {
-          return <Quarterback key={qb.name} qb={qb} stats={this.state.stats} />;
+      if (players !== undefined) {
+        players.sort((a, b) => (a[lowerSort] > b[lowerSort] ? -1 : 1));
+        return players.map((player) => {
+          return (
+            <Player
+              key={player.name}
+              player={player}
+              stats={this.state.stats}
+            />
+          );
         });
       }
     } else {
-      return qbs.map((qb) => {
-        return <Quarterback key={qb.name} qb={qb} stats={this.state.stats} />;
+      return players.map((player) => {
+        return (
+          <Player key={player.name} player={player} stats={this.state.stats} />
+        );
       });
     }
   };
@@ -129,8 +137,8 @@ class QuarterbacksContainer extends Component {
           />
         </div>
         <div>
-          <QuarterbackTable
-            renderQuarterbacks={this.renderQuarterbacks}
+          <PlayerTable
+            renderPlayers={this.renderPlayers}
             renderStats={this.renderStats}
           />
         </div>
@@ -141,11 +149,9 @@ class QuarterbacksContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    quarterbacks: state.quarterbacks,
+    players: state.players,
     requesting: state.requesting,
   };
 }
 
-export default connect(mapStateToProps, { fetchQuarterbacks })(
-  QuarterbacksContainer
-);
+export default connect(mapStateToProps, { fetchPlayers })(PlayersContainer);
