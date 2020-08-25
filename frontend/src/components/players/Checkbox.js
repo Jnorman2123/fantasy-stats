@@ -9,7 +9,7 @@ class Checkbox extends Component {
             type="checkbox"
             name={this.props.stat}
             toggled={this.props.isToggled}
-            onChange={this.props.handleToggle}
+            onChange={this.props.handleStatToggle}
             className="form-check-input"
           />
           {this.props.stat}

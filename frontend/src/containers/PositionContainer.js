@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Checkbox from "../components/players/Checkbox";
+import Position from "../components/players/Position";
 
-class CheckboxContainer extends Component {
+class PositionContainer extends Component {
   render() {
     if (this.props.stats !== undefined) {
       return (
@@ -19,7 +19,7 @@ class CheckboxContainer extends Component {
           >
             {this.props.stats.map((stat) => {
               return (
-                <Checkbox
+                <Position
                   key={stat}
                   stat={stat}
                   handleStatToggle={this.props.handleStatToggle}
@@ -36,4 +36,4 @@ class CheckboxContainer extends Component {
   }
 }
 
-export default CheckboxContainer;
+export default PositionContainer;

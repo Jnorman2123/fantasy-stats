@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchPlayers } from "../actions/players/playersActions";
+import { fetchPlayers } from "../actions/players/playerActions";
 import PlayerTable from "../components/players/PlayerTable";
 import Player from "../components/players/Player";
 import Stat from "../components/players/Stat";
@@ -8,32 +8,52 @@ import CheckboxContainer from "./CheckboxContainer";
 
 const state = {
   stats: {
+    Year: "on",
     Name: "on",
     Team: "on",
-    Ints: "on",
-    Fumbs: "on",
-    "Rush atts": "on",
+    Position: "on",
+    "Rush attempts": "on",
     "Rush yards": "on",
-    "Rush tds": "on",
-    "Pass atts": "on",
-    "Pass comps": "on",
-    "Comp perc": "on",
+    "Yards per rush": "on",
+    "Rush touchdowns": "on",
+    "Rushes per touchdown": "on",
+    Fumbles: "on",
+    "Pass attempts": "on",
+    "Pass completions": "on",
+    "Completion percentage": "on",
     "Pass yards": "on",
-    "Pass tds": "on",
+    "Yards per pass attempt": "on",
+    "Yards per completion": "on",
+    "Pass touchdowns": "on",
+    "Passes per touchdown": "on",
+    Interceptions: "on",
+    Targets: "on",
+    Receptions: "on",
+    "Catch percentage": "on",
+    "Receiving yards": "on",
+    "Yards per reception": "on",
+    "Yards per target": "on",
+    "Receiving touchdowns": "on",
+    "Receptions per touchdown": "on",
+    "Targets per touchdown": "on",
+    "Total attempts": "on",
+    "Total yards": "on",
+    "Yards per attempt": "on",
+    "Total touchdowns": "on",
+    "Attempts per touchdown": "on",
     Games: "on",
+    "Attempts per game": "on",
     Points: "on",
     "Points per game": "on",
-    "Pass per td": "on",
-    "Yards per pass": "on",
-    "Yards per comp": "on",
-    "Rush per td": "on",
-    "Yards per rush": "on",
-    "Total att": "on",
-    "Att per game": "on",
-    "Points per att": "on",
-    "Att per td": "on",
-    "Avg vor": "on",
-    "Starting vor": "on",
+    "Points per attempt": "on",
+    "Average value over replacement": "on",
+    "Starting value over replacement": "on",
+  },
+  positions: {
+    qb: "on",
+    rb: "on",
+    wr: "on",
+    te: "on",
   },
   sort: "",
 };
@@ -54,7 +74,7 @@ class PlayersContainer extends Component {
     });
   };
 
-  handleToggle = (event) => {
+  handleStatToggle = (event) => {
     event.persist();
     this.state.stats[event.target.name] === "on"
       ? this.setState((prevState) => ({
@@ -64,6 +84,19 @@ class PlayersContainer extends Component {
       : this.setState((prevState) => ({
           ...prevState,
           stats: { ...prevState.stats, [event.target.name]: "on" },
+        }));
+  };
+
+  handlePositionToggle = (event) => {
+    event.persist();
+    this.state.position[event.target.name] === "on"
+      ? this.setState((prevState) => ({
+          ...prevState,
+          position: { ...prevState.position, [event.target.name]: "off" },
+        }))
+      : this.setState((prevState) => ({
+          ...prevState,
+          position: { ...prevState.position, [event.target.name]: "on" },
         }));
   };
 
@@ -124,7 +157,6 @@ class PlayersContainer extends Component {
   };
 
   render() {
-    console.log(this.state);
     const stats = this.createStats();
     let toggled = this.state;
     return (
@@ -133,7 +165,7 @@ class PlayersContainer extends Component {
           <CheckboxContainer
             toggled={toggled}
             stats={stats}
-            handleToggle={this.handleToggle}
+            handleStatToggle={this.handleStatToggle}
           />
         </div>
         <div>
