@@ -8,7 +8,6 @@ class Player(models.Model):
     name = models.CharField(max_length=50)
     team = models.CharField(max_length=50)
     position = models.CharField(max_length=50)
-    position_rank = models.IntegerField()
     rush_attempts = models.IntegerField()
     rush_yards = models.IntegerField()
     yards_per_rush = models.FloatField()
@@ -43,5 +42,3 @@ class Player(models.Model):
     points = models.FloatField()
     points_per_game = models.FloatField()
     points_per_attempt = models.FloatField()
-    average_value_over_replacement = models.FloatField()
-    starting_value_over_replacement = models.FloatField()
