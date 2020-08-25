@@ -5,7 +5,7 @@ from .models import Player
 class PlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Player
-        fields = ("year", "name", "team", "position", "position_rank", "rush_attempts", "rush_yards",
+        fields = ("year", "name", "team", "position", "rush_attempts", "rush_yards",
                   "yards_per_rush", "rush_touchdowns", "rushes_per_touchdown", "fumbles", "pass_attempts",
                   "pass_completions", "completion_percentage", "pass_yards", "yards_per_pass_attempt",
                   "yards_per_completion", "pass_touchdowns", "passes_per_touchdown", "interceptions", "targets",

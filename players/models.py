@@ -42,3 +42,5 @@ class Player(models.Model):
     points = models.FloatField()
     points_per_game = models.FloatField()
     points_per_attempt = models.FloatField()
+    average_value_over_replacement = models.FloatField(default=0)
+    starting_value_over_replacement = models.FloatField(default=0)
